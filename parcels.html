@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>US Parcel Ownership with Owner Mailing Addresses — Data Documentation | Civly</title>
+<meta name="description" content="Documentation for the Civly US Parcel Ownership dataset on the Snowflake Marketplace: 54 million parcel records across 25 states with owner mailing addresses.">
+<style>
+  :root { --ink:#1a2333; --muted:#5b6779; --line:#e3e7ee; --accent:#1f5fd6; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink); background:#fff; }
+  header { border-bottom:1px solid var(--line); padding:28px 0; }
+  .wrap { max-width:880px; margin:0 auto; padding:0 24px; }
+  .brand { font-weight:700; letter-spacing:.04em; font-size:14px; text-transform:uppercase; color:var(--accent); text-decoration:none; }
+  h1 { font-size:30px; line-height:1.25; margin:18px 0 6px; }
+  .sub { color:var(--muted); font-size:17px; margin:0 0 18px; }
+  h2 { font-size:20px; margin:36px 0 10px; }
+  p { margin:10px 0; }
+  table { border-collapse:collapse; width:100%; margin:14px 0; font-size:14px; }
+  th, td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:#f6f8fb; }
+  code, pre { font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  code { background:#f2f4f8; padding:1px 5px; border-radius:4px; }
+  pre { background:#0f1626; color:#dbe4f5; padding:16px; border-radius:8px; overflow-x:auto; }
+  .facts td:first-child { font-weight:600; white-space:nowrap; }
+  footer { border-top:1px solid var(--line); margin-top:44px; padding:22px 0; color:var(--muted); font-size:14px; }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="https://civly.ai">Civly</a>
+  <h1>US Parcel Ownership with Owner Mailing Addresses</h1>
+  <p class="sub">Data documentation for the Civly listing on the Snowflake Marketplace</p>
+</div></header>
+
+<main class="wrap">
+  <h2>About this dataset</h2>
+  <p>Civly compiles public records into analytics-ready datasets. This product is parcel
+  ownership with owner mailing addresses, compiled from county assessor and land-record
+  sources. Every parcel carries the owner&rsquo;s name and normalized name, mailing address,
+  the property&rsquo;s situs address, sale history with prices, assessed and market values,
+  acreage, property type, and owner-occupied and homestead flags.</p>
+  <p>Common uses: owner outreach and absentee-owner analysis, market research, land research,
+  and investigative work. Data refreshes weekly, and every record carries source attribution
+  and a refresh date.</p>
+
+  <table class="facts">
+    <tr><td>Total records</td><td>53,998,426 parcels across 25 states</td></tr>
+    <tr><td>Covered states</td><td>AZ, AR, CO, CT, DC, FL, GA, IL, IN, MA, ME, MI, MN, MT, NC, ND, NY, OH, PA, TX, UT, VT, WI, WV, WY</td></tr>
+    <tr><td>Trial listing</td><td>Complete Vermont and Wyoming records &mdash; 717,685 parcels</td></tr>
+    <tr><td>Full dataset</td><td>All 25 states, available by subscription</td></tr>
+    <tr><td>Source</td><td>County assessor and land records, compiled by Civly</td></tr>
+    <tr><td>Refresh</td><td>Weekly</td></tr>
+    <tr><td>Geographic coverage</td><td>United States</td></tr>
+    <tr><td>Key matching columns</td><td><code>OWNER_NAME_NORM</code> (normalized owner name), <code>PARCEL_ID</code>, <code>COUNTY_FIPS</code></td></tr>
+  </table>
+
+  <h2>Data dictionary &mdash; <code>PARCELS.PARCEL_OWNERS_TRIAL</code> (trial) / <code>PARCELS.PARCEL_OWNERS</code> (full)</h2>
+  <p>The trial table and the full table share the same 36 columns. Column names are uppercase.</p>
+  <table>
+    <tr><th>Column</th><th>Type</th><th>Description</th></tr>
+    <tr><td><code>ID</code></td><td>NUMBER</td><td>Civly internal row identifier</td></tr>
+    <tr><td><code>SOURCE</code></td><td>VARCHAR</td><td>Source system, e.g. assessor or deed records</td></tr>
+    <tr><td><code>SOURCE_ROW_ID</code></td><td>VARCHAR</td><td>Identifier in the source system</td></tr>
+    <tr><td><code>STATE</code></td><td>VARCHAR</td><td>Two-letter state code</td></tr>
+    <tr><td><code>SOURCE_LAYER</code></td><td>VARCHAR</td><td>Source dataset layer</td></tr>
+    <tr><td><code>SOURCE_URL</code></td><td>VARCHAR</td><td>Source dataset URL</td></tr>
+    <tr><td><code>AS_OF</code></td><td>VARCHAR</td><td>Source data as-of date</td></tr>
+    <tr><td><code>PARCEL_ID</code></td><td>VARCHAR</td><td>Parcel identifier</td></tr>
+    <tr><td><code>COUNTY</code></td><td>VARCHAR</td><td>County name</td></tr>
+    <tr><td><code>COUNTY_FIPS</code></td><td>VARCHAR</td><td>County FIPS code</td></tr>
+    <tr><td><code>OWNER_NAME</code></td><td>VARCHAR</td><td>Primary owner name as filed</td></tr>
+    <tr><td><code>OWNER_NAME_2</code></td><td>VARCHAR</td><td>Secondary owner name as filed</td></tr>
+    <tr><td><code>OWNER_NAME_NORM</code></td><td>VARCHAR</td><td>Normalized owner name for matching</td></tr>
+    <tr><td><code>CARE_OF</code></td><td>VARCHAR</td><td>Care-of line, where present</td></tr>
+    <tr><td><code>OWNER_STREET</code></td><td>VARCHAR</td><td>Owner mailing street address</td></tr>
+    <tr><td><code>OWNER_STREET2</code></td><td>VARCHAR</td><td>Owner mailing street address line 2</td></tr>
+    <tr><td><code>OWNER_CITY</code></td><td>VARCHAR</td><td>Owner mailing city</td></tr>
+    <tr><td><code>OWNER_STATE</code></td><td>VARCHAR</td><td>Owner mailing state</td></tr>
+    <tr><td><code>OWNER_ZIP</code></td><td>VARCHAR</td><td>Owner mailing ZIP code</td></tr>
+    <tr><td><code>SITUS_ADDRESS</code></td><td>VARCHAR</td><td>Property street address</td></tr>
+    <tr><td><code>SITUS_CITY</code></td><td>VARCHAR</td><td>Property city</td></tr>
+    <tr><td><code>SITUS_ZIP</code></td><td>VARCHAR</td><td>Property ZIP code</td></tr>
+    <tr><td><code>SALE_DATE</code></td><td>DATE</td><td>Most recent sale date</td></tr>
+    <tr><td><code>SALE_PRICE</code></td><td>NUMBER</td><td>Most recent sale price in USD</td></tr>
+    <tr><td><code>PRIOR_SALE_DATE</code></td><td>DATE</td><td>Prior sale date</td></tr>
+    <tr><td><code>PRIOR_SALE_PRICE</code></td><td>NUMBER</td><td>Prior sale price in USD</td></tr>
+    <tr><td><code>ASSESSED_VALUE</code></td><td>NUMBER</td><td>Assessed value in USD</td></tr>
+    <tr><td><code>MARKET_VALUE</code></td><td>NUMBER</td><td>Market value in USD</td></tr>
+    <tr><td><code>LAND_VALUE</code></td><td>NUMBER</td><td>Land value component in USD</td></tr>
+    <tr><td><code>IMPROVEMENT_VALUE</code></td><td>NUMBER</td><td>Improvement value component in USD</td></tr>
+    <tr><td><code>HOMESTEAD_FLAG</code></td><td>BOOLEAN</td><td>Homestead status</td></tr>
+    <tr><td><code>OWNER_OCCUPIED</code></td><td>BOOLEAN</td><td>Owner-occupied flag, mailing address matches situs</td></tr>
+    <tr><td><code>ACRES</code></td><td>DOUBLE</td><td>Parcel size in acres</td></tr>
+    <tr><td><code>PROPERTY_TYPE</code></td><td>VARCHAR</td><td>Property type classification</td></tr>
+    <tr><td><code>CREATED_AT</code></td><td>TIMESTAMP</td><td>Civly load timestamp</td></tr>
+    <tr><td><code>UPDATED_AT</code></td><td>TIMESTAMP</td><td>Civly load timestamp</td></tr>
+  </table>
+
+  <h2>Sample queries</h2>
+  <p>After installing, set your worksheet&rsquo;s database selector to the installed database and these run as written.</p>
+  <pre>-- Parcel counts by state (trial returns VT and WY)
+SELECT STATE, COUNT(*) AS PARCELS, SUM(SALE_PRICE) AS SOLD_VALUE
+FROM PARCELS.PARCEL_OWNERS_TRIAL
+GROUP BY STATE ORDER BY PARCELS DESC;
+
+-- Absentee owners: mailing state differs from parcel state
+SELECT OWNER_STATE, STATE AS PARCEL_STATE, COUNT(*) AS PARCELS
+FROM PARCELS.PARCEL_OWNERS_TRIAL
+WHERE OWNER_STATE IS NOT NULL AND OWNER_STATE &lt;&gt; STATE
+GROUP BY 1, 2 ORDER BY PARCELS DESC LIMIT 25;
+
+-- All parcels owned by a name (use the normalized column)
+SELECT OWNER_NAME, OWNER_STREET, OWNER_CITY, OWNER_STATE, OWNER_ZIP,
+       SITUS_ADDRESS, SITUS_CITY, SALE_DATE, SALE_PRICE, ACRES
+FROM PARCELS.PARCEL_OWNERS_TRIAL
+WHERE OWNER_NAME_NORM = UPPER('Jane Q Public');</pre>
+
+  <h2>Sourcing and attribution</h2>
+  <p>Source data is county assessor and land-record data collected from public county
+  sources across the 25 covered states. Civly cleans, normalizes, and standardizes owner
+  names and addresses and stamps every record with its source attribution and refresh date.
+  When you publish analysis based on this dataset, credit the county sources and Civly as
+  compiler.</p>
+</main>
+
+<footer><div class="wrap">
+  Civly compiles public records into analytics-ready datasets for research and industry teams.
+  Questions about this dataset: matthew@civly.ai
+</div></footer>
+</body>
+</html>
